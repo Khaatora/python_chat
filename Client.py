@@ -69,10 +69,12 @@ def recieveMessage(s):
                 #this line stores received data from the next symbol to the end of the string
                 #for example: n= "hello world"
                 data_hash = data[(data.find('+')+1):len(data)]
+
                 data = data[(data.find(':')+1):data.find('+')]
 
-                if data_hash == hashlib.md5(data.encode()).hexdigest() :
-                    print(n, getTranslatedMessage(data, -2))
+                data = getTranslatedMessage(data, -2)
+                if data_hash == hashlib.md5(data.encode()).hexdigest():
+                    print(n, data)
                 else :
                     print ("the server is hacked")
                 
@@ -96,13 +98,12 @@ def sendMessage(s):
             return
         #encrypt and send entered message
         else:
-            x = (getTranslatedMessage(message, 2) + '+' + message_hash).encode("utf-8")
+            x = (getTranslatedMessage(message, 2)+'+'+message_hash).encode("utf-8")
             s.send(x)
 
 
 
 def getTranslatedMessage(message, key):
-
     translated = ''
     for symbol in message:
         if symbol.isalpha():

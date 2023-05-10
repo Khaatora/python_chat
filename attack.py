@@ -7,7 +7,7 @@ name = "hacker"
 def connecting(name, host, port):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, port))
-    s.send(name.encode("utf-8"))
+    # s.send(name.encode("utf-8"))
     print("Server connected successfully")
     recieveMessage(s)
 
@@ -21,6 +21,7 @@ def recieveMessage(s):
             else:
                 n = data[0:(data.find(':')+1)]
                 data = data[(data.find(':')+1):len(data)]
+                # attempts to decrypt the message and show all possible outcomes
                 for x in range(26):
                     print(n, getTranslatedMessage(data, x))
     except ConnectionResetError:

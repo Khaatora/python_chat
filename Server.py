@@ -50,7 +50,7 @@ def connect(s):
         conn, addr = s.accept()
         #name of the sender
         name = conn.recv(1024).decode("utf-8")
-        ## append both the sender's name and IP
+        # append both the sender's name and IP
         names.append(name)
         ips.append(conn)
         print(name, "is connected")
@@ -98,7 +98,7 @@ def broadcast(conn, name, connected):
 
 #Send Message to all Clients
 def sendMessage(conn, name, data):
-    x = name, ":", data
+    x = name + ":" + data
     for connection in ips:
         if connection != conn:
             connection.send(''.join(list(x)).encode("utf-8"))
